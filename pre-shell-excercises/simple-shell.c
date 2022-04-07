@@ -17,36 +17,33 @@ int main(void)
 	char *file = NULL;
 	size_t len = 0;
 	char *args[] = {"/bin/ls", "-l" ,"/usr/"};
-	char tok[] = "/bin/ls -l /usr/";
-	char *token = strtok(tok, " ");
-	struct stat buf;
+	char *token;
+	int status;
 
 	while (1)
 	{
-		getline(&file, &len, stdin);
-		//is a stat
-		if (stat(file, &len) == 0)
-		{
-			printf("size of \"%s\" is %ld bytes.\n", file, buf.st_mode);
-		}
-		else
-		{
-			perror(file); //if stat fail
-		}
+		printf("#cisfun$");
+		if (getline(&file, &len, stdin) == -1);
+			printf("error");
+		token = strtok(file, " ");
+		token = strtok(NULL, " ");
+
 		if (fork() != 0)
 		{
 			wait (NULL);
 		}
-		else
+		if (fork() == 0)
 		{
-			execve(args[0], args, 0);
-			if (token != NULL)
-			{
-				printf("%s\n", token);
-				token = strtok(NULL, " ");
-			}
+			if (execve(args[0], args, 0))
+        	{
+           		perror("execve");
+           		exit(EXIT_FAILURE);
+        	}
 		}
+		if (fork() > 0)
+			wait(&status);
 	}
+	putchar('\n');
 	free(file);
-	return (0);
+	exit (status);
 }
