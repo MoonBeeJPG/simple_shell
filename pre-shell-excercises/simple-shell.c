@@ -15,11 +15,11 @@
 int main(void)
 {
 	char *file = NULL;
-	long long size; //st can be a 64 bits
+	size_t size; //st can be a 64 bits
 	size_t len = 0;
 	char args[] = "/bin/ls l /usr/";
-	char *token = strtok(args, " ");
-	errno = 0; //always set errno in zero
+	char *token = strtok(args, " /");
+	struct stat st_size;
 
 	while (1)
 	{
@@ -28,7 +28,7 @@ int main(void)
 		if (stat(file, len) == 0)
 		{
 			size = len->st_size;
-			printf("size of \"%s\" is %lld bytes.\n", file, size);
+			printf("size of \"%s\" is %ld bytes.\n", file, size);
 		}
 		else
 		{
@@ -40,13 +40,11 @@ int main(void)
 		}
 		else
 		{
-			while (token != NULL)
+			execve(args, 0);
+			if (token != NULL)
 			{
 				printf("%s\n", token);
 				token = strtok(NULL, " /");
-				if (execve("./shstat", args) == -1)
-					perror("could not execve");
-				return (1);
 			}
 		}
 	}
