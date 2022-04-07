@@ -15,20 +15,19 @@
 int main(void)
 {
 	char *file = NULL;
-	size_t size; //st can be a 64 bits
 	size_t len = 0;
-	char args[] = "/bin/ls l /usr/";
-	char *token = strtok(args, " /");
-	struct stat st_size;
+	char *args[] = {"/bin/ls", "-l" ,"/usr/"};
+	char tok[] = "/bin/ls -l /usr/";
+	char *token = strtok(tok, " ");
+	struct stat buf;
 
 	while (1)
 	{
 		getline(&file, &len, stdin);
 		//is a stat
-		if (stat(file, len) == 0)
+		if (stat(file, &len) == 0)
 		{
-			size = len->st_size;
-			printf("size of \"%s\" is %ld bytes.\n", file, size);
+			printf("size of \"%s\" is %ld bytes.\n", file, buf.st_mode);
 		}
 		else
 		{
@@ -40,11 +39,11 @@ int main(void)
 		}
 		else
 		{
-			execve(args, 0);
+			execve(args[0], args, 0);
 			if (token != NULL)
 			{
 				printf("%s\n", token);
-				token = strtok(NULL, " /");
+				token = strtok(NULL, " ");
 			}
 		}
 	}
