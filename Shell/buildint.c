@@ -1,24 +1,28 @@
 #include "main.h"
 /**
-*
-*
+* buildint_name - Names of the buildints
 */
-int sh_exit(char **args);
-//list arguments with thier functions
-char *builtin_string[] = {
-	"exit"
+char *buidint_name[] = {
+					{"exit"}
 };
-
-int (*builtin_functions[]) (char **) = {
-	&sh_exit
+/**
+* buildint_func - functions that corresponds with the buildint_name
+*/
+int (*buildint_func[])(char **) = {
+				{&sh_exit}
 };
-
-int sh_num_bulitins() {
-	return sizeof(builtin_string) / sizeof(char *);
+/**
+* buildint_size - chech the size of rthe buildint_name for lately compare it
+* with the input line
+*/
+int buildint_size() 
+{
+	return (sizeof(builtin_name) / sizeof(char *));
 }
-
-//create functions
-int sh_exit(char **args)
+/**
+* exit - leaves the current program or if you write in the terminal exit it
+*/
+int exit(char **tok)
 {
 	return (0);
 }
