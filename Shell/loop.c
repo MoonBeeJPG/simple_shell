@@ -1,10 +1,10 @@
 #include "main.h"
 /**
 * loop - Infinite loop that are always on when the shell runs
-* 
-* @line: the input, when the person writes something this is the line reading
-* @tok: the previous line tokenized
-* @func: the program corresponding to the input read and tokenized
+*
+* line: the input, when the person writes something this is the line reading
+* tok: the previous line tokenized
+* func: the program corresponding to the input read and tokenized
 *
 */
 void loop(void)
@@ -13,8 +13,7 @@ void loop(void)
 	char **tok;
 	int func;
 
-	do 
-	{
+	do {
 		printf("#cisfun$ ");
 		line = readline();
 		tok = token_line(line);
