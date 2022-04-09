@@ -2,12 +2,12 @@
 #define TOKBUFSIZE 64
 #define TOKDELIM "/t/r/n/a"
 /**
-* token_line - read the line
-* 
+* token_line - function for the tokenization of the input line
+*
 * @line: previus input line
 *
 * bufsize: capacity of the buffer
-* position: always positioned in the beginning of the buffer at startup 
+* position: always positioned in the beginning of the buffer at startup
 * buff: capacity for the tokenized line memory allocation
 * token: tokenization of the input line
 *
@@ -26,7 +26,7 @@ char **token_line(char *line)
 	}
 
 	token = strtok(line, TOKDELIM);
-	
+
 	while (token != NULL)
 	{
 		token[position] = token;
@@ -36,7 +36,7 @@ char **token_line(char *line)
 		{
 			bufsize += TOKBUFSIZE;
 			buff = realloc(buff, bufsize * sizeof(char *));
-			
+
 			if (!buff)
 			{
 				perror(stderr, "shell: allocation error\n");
@@ -47,5 +47,5 @@ char **token_line(char *line)
 	}
 
 	buff[position] = NULL;
-	return buff;
+	return (buff);
 }
