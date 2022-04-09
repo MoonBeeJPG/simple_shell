@@ -20,3 +20,17 @@ On the other hand we will find that i the buffer is less than the traversed posi
 If the tokens are empty, we will get an error.
 As long as everything works we will end our pointer array terminated in null.
 
+##Shell
+We take the argument list by forking the process and saving the return value.
+Once the fork is created, we have two processes running simultaneously.
+Throug execve we execute the child process,(execve is a variant of exec).
+Execve, executes a program referenced by the pathname, and runs a new program, replacing the previous one.
+It does not need o return in case of success.
+If the program returns something it breaks taking into account its base condition.
+In case everything works, we must make the father wait with wait pid until the child process dies, but we must use macros to make sure with totaly that the child porocess relly dies.
+Finally we return 1 to request a new entry.
+
+##Buildint
+We list commands with their corresponding function
+#exit
+We create the exit function to implement ir, returning 0 as a signal to end the loop.
