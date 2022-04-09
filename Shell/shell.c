@@ -2,29 +2,36 @@
 /**
 *
 * shell: init the shell launcher
-*
+* child process in first if for
+* else if, error in forking
+* else do, parent process
 */
-int shell(char **args)
+int shell(char **tok)
 {
-  pid_t pid, wpid;
-  int status;
+	pid_t pid, wpid;
+	int status;
 
-  pid = fork();
-  if (pid == 0) {
-    // Child process
-    if (execvp(args[0], args) == -1) {
-      perror("lsh");
-    }
-    exit(EXIT_FAILURE);
-  } else if (pid < 0) {
-    // Error forking
-    perror("lsh");
-  } else {
-    // Parent process
-    do {
-      wpid = waitpid(pid, &status, WUNTRACED);
-    } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-  }
+		pid = fork();
+		if (pid == 0)
+		{
+			if (execvp(tok[0], tok) == -1)
+			{
+				perror("shell");
+			}
+				exit(EXIT_FAILURE);
+			}
+		else if (pid < 0) 
+		{
+			perror("shell");
+		}
+		else
+		{
+			do
+			{
+				wpid = waitpid(pid, &status, WUNTRACED);
+			} 
+			while (!WIFEXITED(status) && !WIFSIGNALED(status));
+			}
 
-  return 1;
+		return 1;
 }
