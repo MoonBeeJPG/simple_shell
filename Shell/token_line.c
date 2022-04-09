@@ -1,9 +1,9 @@
 #include "main.h"
 /**
 *
-*
+* token_line - read the line
 */
-char **sh_token_line(char *line)
+char **token_line(char *line)
 {
 	int bufsize = SH_TOKEN_BUFSIZE, position = 0;
 	char **tokens = malloc(bufsize * sizeof(char*));
