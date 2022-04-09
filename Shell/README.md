@@ -30,6 +30,11 @@ If the program returns something it breaks taking into account its base conditio
 In case everything works, we must make the father wait with wait pid until the child process dies, but we must use macros to make sure with totaly that the child porocess relly dies.
 Finally we return 1 to request a new entry.
 
+##Match
+We will use this function to link all the functions in your processes.
+We verify with strcmp that everything is in its place and if it coincides we make it by calling Shell for the process.
+Taking into account that our arguments exist or are not just a space.
+
 ##Buildint
 We list commands with their corresponding function
 #exit
