@@ -17,9 +17,9 @@ int match(char **tok)
 		return (1);
 	}
 
-	for (i = 0; i < buildint(); i++)
+	for (i = 0; i < buildint_num(); i++)
 	{
-		if (strcmp(tok[0], buildint_name[i]) == 0)
+		if (strcmp(tok[0], buildint_arr[i]) == 0)
 		{
 			return (*buidint_func[i](tok));
 		}
