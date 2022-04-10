@@ -3,7 +3,7 @@
 * shell - infinite loop
 * Return: success
 */
-int main(int argc, char **argv)
+int main(void)
 {
 
   lsh_loop();

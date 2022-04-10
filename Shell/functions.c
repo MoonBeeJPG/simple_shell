@@ -39,15 +39,8 @@ char *lsh_read_line(void)
 
     if (getline(&line, &bufsize, stdin) == -1)
 	{
-		if (feof(stdin))
-		{
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			perror("readline");
-			exit(EXIT_FAILURE);
-		}
+		perror("readline");
+		exit(EXIT_FAILURE);
 	}
 
     return (line);
@@ -75,7 +68,7 @@ char **lsh_split_line(char *line)
 
     if (!token)
     {
-        fprintf(stderr, "lsh: allocation error\n");
+        perror("lsh: allocation error\n");
         exit(EXIT_FAILURE);
     }
 
@@ -91,7 +84,7 @@ char **lsh_split_line(char *line)
             tokens = realloc(tokens, bufsize * sizeof(char *));
             if (!tokens)
             {
-                fprintf(stderr, "lsh: allocation error\n");
+                perror("lsh: allocation error\n");
                 exit(EXIT_FAILURE);
             }
         }
@@ -120,7 +113,7 @@ int lsh_launch(char **args)
         pid = fork();
         if (pid == 0)
         {
-            if (execvp(args[0], args) == -1)
+            if (execve(args[0], args, 0) == -1)
             {
                 perror("lsh");
             }
@@ -137,4 +130,23 @@ int lsh_launch(char **args)
             } while (!WIFEXITED(status) && !WIFSIGNALED(status));
         }
         return (1);
+}
+
+/**
+* compare - replace of strcmp
+* while exist and are equal moremore
+* Return: str1 and str2
+*/
+int compare(char *str1, char *str2)
+{
+	while(*str1 || *str2)
+	{
+		if(*str1 != *str2)
+		{
+			break;
+		}
+		++str1;
+		++str2;
+	}
+	return *str1 - *str2;
 }
