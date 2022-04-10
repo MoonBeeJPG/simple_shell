@@ -1,12 +1,16 @@
 #include "main.h"
 /**
-* main - main function
-*
-* Return: 0
+* main - to
+* Return: EXIT
 */
-int main(void)
+int main(int argc, char **tok)
 {
-	printf("something");
-	return (0);
+	//load files
 
+	//run loop
+	loop();
+
+	//perform/clean
+
+	return (EXIT_SUCCESS);
 }
