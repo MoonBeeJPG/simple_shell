@@ -1,53 +1,60 @@
 #include "main.h"
-#define TOKBUFSIZE 64
-#define TOKDELIM "/t/r/n/a"
 /**
-* loop - Infinite loop that are always on when the shell runs
+* lsh_loop - Infinite loop that are always on when the shell runs
 *
 * line: the input, when the person writes something this is the line reading
-* tok: the previous line tokenized
-* func: the program corresponding to the input read and tokenized
+* args: the previous line tokenized
+* status: the program corresponding to the input read and tokenized
 *
 */
-void loop(void)
+void lsh_loop(void)
 {
     char *line;
-    char **tok;
-    int func;
+    char **args;
+    int status;
 
     do {
         printf("#cisfun$ ");
-        line = readline();
-        tok = token_line(line);
-        func = match(tok);
+        line = lsh_read_line();
+        args = lsh_split_line(line);
+        status = lsh_execute(args);
 
         free(line);
-        free(tok);
-    } while (func);
+        free(args);
+    } while (status);
 }
 
 /**
-* read_line - function that read the input line
+* lsh_read_line - function that read the input line
 *
 * line: input line
 * bufsize: size of the malloc that getline automatically creates
 *
 * Return: the input line already read
 */
-char *read_line(void)
+char *lsh_read_line(void)
 {
     char *line = NULL;
     ssize_t bufsize = 0;
 
     if (getline(&line, &bufsize, stdin) == -1)
-    {
-        perror("readline");
-        exit(EXIT_FAILURE);
-    }
+	{
+		if (feof(stdin))
+		{
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			perror("readline");
+			exit(EXIT_FAILURE);
+		}
+	}
 
     return (line);
 }
 
+#define LSH_TOK_BUFSIZE 64
+#define LSH_TOK_DELIM " \t\r\n\a"
 /**
 * token_line - function for the tokenization of the input line
 *
@@ -60,76 +67,73 @@ char *read_line(void)
 *
 * Return: buff with the tokenized line successfuly allocated
 */
-char **token_line(char *line)
+char **lsh_split_line(char *line)
 {
-    int bufsize = TOKBUFSIZE, position = 0;
-    char **buff = malloc(bufsize * sizeof(char *));
+    int bufsize = LSH_TOK_BUFSIZE, position = 0;
+    char **tokens = malloc(bufsize * sizeof(char *));
     char *token;
 
-    if (!buff)
+    if (!token)
     {
-        perror(stderr, "shell: allocation error\n");
+        fprintf(stderr, "lsh: allocation error\n");
         exit(EXIT_FAILURE);
     }
 
-    token = strtok(line, TOKDELIM);
-
+    token = strtok(line, LSH_TOK_DELIM);
     while (token != NULL)
     {
-        token[position] = token;
+        tokens[position] = token;
         position++;
 
         if (position >= bufsize)
         {
-            bufsize += TOKBUFSIZE;
-            buff = realloc(buff, bufsize * sizeof(char *));
-
-            if (!buff)
+            bufsize += LSH_TOK_BUFSIZE;
+            tokens = realloc(tokens, bufsize * sizeof(char *));
+            if (!tokens)
             {
-                perror(stderr, "shell: allocation error\n");
+                fprintf(stderr, "lsh: allocation error\n");
                 exit(EXIT_FAILURE);
             }
         }
-        token = strtok(NULL, TOKDELIM);
+        token = strtok(NULL, LSH_TOK_DELIM);
     }
-
-    buff[position] = NULL;
-    return (buff);
+    tokens[position] = NULL;
+    return (tokens);
 }
 
 /**
 * shell - matches the tokenized line to the corresponding program
 * through a child
 *
-* @tok: previous line tokenized
+* @args: previous line tokenized
 *
-* child: child created by the father
+* pid: child created by the father
 * waitchild: the father wait for the child dead
 *
 * Return: 1 (Shell on, Success)
 */
-int shell(char **tok)
+int lsh_launch(char **args)
 {
-    pid_t child, waitchild;
+    pid_t pid, wpid;
     int status;
 
-        child = fork();
-        if (child == 0)
+        pid = fork();
+        if (pid == 0)
         {
-            if (execvp(tok[0], tok) == -1)
+            if (execvp(args[0], args) == -1)
             {
-                perror("shell");
+                perror("lsh");
             }
                 exit(EXIT_FAILURE);
         }
-        else if (child < 0)
+        else if (pid < 0)
         {
-            perror("shell");
+            perror("lsh");
         }
         else
         {
             do {
-                waitchild = waitpid(child, &status, WUNTRACED);
+                wpid = waitpid(child, &status, WUNTRACED);
             } while (!WIFEXITED(status) && !WIFSIGNALED(status));
         }
         return (1);
@@ -139,7 +143,7 @@ int shell(char **tok)
 * match - function that matches the tokenized line input with the
 * corresponding program or buildint
 *
-* @tok: previous tokenized line
+* @args: previous tokenized line
 *
 * Return: If the tokenized input are not any of the buildint the
 * shell go to the system programs and work with pid and ppid
@@ -148,18 +152,18 @@ int match(char **tok)
 {
     int i;
 
-    if (tok[0] == NULL)
+    if (args[0] == NULL)
     {
         return (1);
     }
 
-    for (i = 0; i < buildint_num(); i++)
+    for (i = 0; i < lsh_num_builtins(); i++)
     {
-        if (strcmp(tok[0], buildint_arr[i]) == 0)
+        if (strcmp(args[0], builtin_str[i]) == 0)
         {
-            return (*buidint_func[i](tok));
+            return (*builtin_func[i])(args);
         }
     }
 
-    return (shell(tok));
+    return lsh_launch(args);
 }
