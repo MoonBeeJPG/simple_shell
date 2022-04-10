@@ -133,14 +133,14 @@ int lsh_launch(char **args)
         else
         {
             do {
-                wpid = waitpid(child, &status, WUNTRACED);
+                wpid = waitpid(pid, &status, WUNTRACED);
             } while (!WIFEXITED(status) && !WIFSIGNALED(status));
         }
         return (1);
 }
 
 /**
-* match - function that matches the tokenized line input with the
+* execute - function that matches the tokenized line input with the
 * corresponding program or buildint
 *
 * @args: previous tokenized line
@@ -148,7 +148,7 @@ int lsh_launch(char **args)
 * Return: If the tokenized input are not any of the buildint the
 * shell go to the system programs and work with pid and ppid
 */
-int match(char **tok)
+int lsh_execute(char **args)
 {
     int i;
 
