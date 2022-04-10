@@ -138,32 +138,3 @@ int lsh_launch(char **args)
         }
         return (1);
 }
-
-/**
-* execute - function that matches the tokenized line input with the
-* corresponding program or buildint
-*
-* @args: previous tokenized line
-*
-* Return: If the tokenized input are not any of the buildint the
-* shell go to the system programs and work with pid and ppid
-*/
-int lsh_execute(char **args)
-{
-    int i;
-
-    if (args[0] == NULL)
-    {
-        return (1);
-    }
-
-    for (i = 0; i < lsh_num_builtins(); i++)
-    {
-        if (strcmp(args[0], builtin_str[i]) == 0)
-        {
-            return (*builtin_func[i])(args);
-        }
-    }
-
-    return lsh_launch(args);
-}
