@@ -12,6 +12,7 @@
 
 int buildexit(char **tok);
 void loop(void);
+int main(int argc, char **tok);
 int match(char **tok);
 char *readline(void);
 int shell(char **tok);
