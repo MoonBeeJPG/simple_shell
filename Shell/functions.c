@@ -1,141 +1,119 @@
 #include "main.h"
+
 /**
-* lsh_loop - Infinite loop that are always on when the shell runs
+* main - running the infinite loop
+*
+* Return: success
+*/
+int runloop(void)
+{
+
+  loop();
+
+  return EXIT_SUCCESS;
+}
+
+/**
+* infiniteloop - Infinite loop that are always on when the shell runs
 *
 * line: the input, when the person writes something this is the line reading
 * args: the previous line tokenized
 * status: the program corresponding to the input read and tokenized
 *
 */
-void lsh_loop(void)
+void infiniteloop(void)
 {
-    char *line;
-    char **args;
+    char *input;
+    char **tokenized;
     int status;
 
     do {
         printf("#cisfun$ ");
-        line = lsh_read_line();
-        args = lsh_split_line(line);
-        status = lsh_execute(args);
+        input = readline();
+        tokenized = tokenize_input(input);
+        status = match(tokenized);
 
         free(line);
-        free(args);
+        free(tokenized);
     } while (status);
 }
 
 /**
-* lsh_read_line - function that read the input line
+* readline - function that read the input line
 *
 * line: input line
 * bufsize: size of the malloc that getline automatically creates
 *
 * Return: the input line already read
 */
-char *lsh_read_line(void)
+char *readline(void)
 {
     char *line = NULL;
-    ssize_t bufsize = 0;
+    ssize_t buffer = 0;
 
-    if (getline(&line, &bufsize, stdin) == -1)
+    if (getline(&line, &buffer, stdin) == -1)
 	{
-		perror("readline");
+		perror("Error reading input");
 		exit(EXIT_FAILURE);
 	}
-
     return (line);
 }
 
-#define LSH_TOK_BUFSIZE 64
-#define LSH_TOK_DELIM " \t\r\n\a"
+#define BUFFERSIZE 1024
+#define DELIM "\t\n"
 /**
-* token_line - function for the tokenization of the input line
+* tokenize_line - function for the tokenization of the input line
 *
 * @line: previus input line
 *
-* bufsize: capacity of the buffer
+* buffer: capacity of the buffer
 * position: always positioned in the beginning of the buffer at startup
-* buff: capacity for the tokenized line memory allocation
+* tokenbuff: capacity for the tokenized line memory allocation
 * token: tokenization of the input line
 *
 * Return: buff with the tokenized line successfuly allocated
 */
-char **lsh_split_line(char *line)
+char **tokenize_input(char *line)
 {
-    int bufsize = LSH_TOK_BUFSIZE, position = 0;
-    char **tokens = malloc(bufsize * sizeof(char *));
+    int buffer = BUFFERSIZE, position = 0;
+    char **tokenbuff = malloc(buffer * sizeof(char *));
     char *token;
 
     if (!token)
     {
-        perror("lsh: allocation error\n");
+        perror("Allocation error\n");
         exit(EXIT_FAILURE);
     }
 
-    token = strtok(line, LSH_TOK_DELIM);
+    token = strtok(line, DELIM);
     while (token != NULL)
     {
-        tokens[position] = token;
+        tokenbuff[position] = token;
         position++;
 
-        if (position >= bufsize)
+        if (position >= buffer)
         {
-            bufsize += LSH_TOK_BUFSIZE;
-            tokens = realloc(tokens, bufsize * sizeof(char *));
-            if (!tokens)
+            buffer += BUFFERSIZE;
+            tokenbuff = realloc(tokenbuff, buffer * sizeof(char *));
+            if (!tokenbuff)
             {
-                perror("lsh: allocation error\n");
+                perror("Allocation error\n");
                 exit(EXIT_FAILURE);
             }
         }
-        token = strtok(NULL, LSH_TOK_DELIM);
+        token = strtok(NULL, DELIM);
     }
-    tokens[position] = NULL;
-    return (tokens);
+    tokenbuff[position] = NULL;
+    return (tokenbuff);
 }
 
 /**
-* shell - matches the tokenized line to the corresponding program
-* through a child
-*
-* @args: previous line tokenized
-*
-* pid: child created by the father
-* waitchild: the father wait for the child dead
-*
-* Return: 1 (Shell on, Success)
-*/
-int lsh_launch(char **args)
-{
-    pid_t pid, wpid;
-    int status;
-    
-	pid = fork();
-	if (pid == 0)
-    {
-    	if (execvp(args[0], args) == -1)
-        {
-        	perror("lsh");
-        }
-        exit(EXIT_FAILURE);
-    }
-    else if (pid < 0)
-    {
-    	perror("lsh");
-    }
-    else
-    {
-    	do {
-        	wpid = waitpid(pid, &status, WUNTRACED);
-        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-    }
-    return (1);
-}
-
-/**
-* compare - replace of strcmp
-* while exist and are equal moremore
-* Return: str1 and str2
+* compare - function replace of strcmp
+* 
+* str1: firts string to compare
+* str2: second string to compare
+* 
+* Return: rest of both comparison
 */
 int compare(char *str1, char *str2)
 {

@@ -1,58 +1,64 @@
 #include "main.h"
 
 /**
-* builtin_str - o
+* builtin - An array that stores all the built in names
 */
-char *builtin_str[] = {
+char *builtin[] = {
   "exit"
 };
+
 /**
-* builtin_func - a
+* builtin_func - An array that stores all the built in functions that
+* corresponds with every built in name
 */
 int (*builtin_func[]) (char **) = {
   &lsh_exit
 };
+
 /**
-* lsh_num_builtins - a
+* countbuiltins - Returns the size of the built in name and lately 
+* compares it with the size of tokenized input
 */
-int lsh_num_builtins(void) 
+int countbuiltins(void) 
 {
   return (sizeof(builtin_str) / sizeof(char *));
 }
+
 /**
-   @brief Builtin command: exit.
-   @param args List of args.  Not examined.
-   @return Always returns 0, to terminate execution.
+* exit - Built in for the command exit
+*
+* Return: Always zero at the end of the execution
  */
-int lsh_exit(char **args)
+int exit(char **tokenized)
 {
   return (0);
 }
+
 /**
-* execute - function that matches the tokenized line input with the
-* corresponding program or buildint
+* match - function that matches the size of the tokenized line input with the 
+* size of the corresponding program or buildint
 *
-* @args: previous tokenized line
+* @tokenized: previous tokenized line
 *
 * Return: If the tokenized input are not any of the buildint the
 * shell go to the system programs and work with pid and ppid
 */
-int lsh_execute(char **args)
+int match(char **tokenized)
 {
     int i;
 
-    if (args[0] == NULL)
+    if (tokenized[0] == NULL)
     {
         return (1);
     }
 
-    for (i = 0; i < lsh_num_builtins(); i++)
+    for (i = 0; i < countbuiltins(); i++)
     {
-        if (compare(args[0], builtin_str[i]) == 0)
+        if (compare(tokenized[0], builtin[i]) == 0)
         {
-            return (*builtin_func[i])(args);
+            return (*builtin_func[i])(tokenized);
         }
     }
 
-    return lsh_launch(args);
+    return shell(tokenized);
 }
