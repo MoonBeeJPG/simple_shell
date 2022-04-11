@@ -49,6 +49,10 @@ char *readline(void)
 		perror("Error reading input");
 		exit(EXIT_FAILURE);
 	}
+	if (isatty(0))
+	{
+		printf("$ "); 
+	}
 	return (line);
 }
 
