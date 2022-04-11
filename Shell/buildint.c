@@ -55,7 +55,7 @@ int match(char **tokenized)
     {
         if (compare(tokenized[0], builtin[i]) == 0)
         {
-            return (*builtin_func[i])(tokenized);
+            return ((*builtin_func[i])(tokenized));
         }
     }
 
