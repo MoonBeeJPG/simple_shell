@@ -12,7 +12,6 @@ int lsh_execute(char **args);
 char *lsh_read_line(void);
 char **lsh_split_line(char *line);
 void lsh_loop(void);
-int shell(int argc, char **argv);
 int lsh_num_builtins(void);
 int compare(char *str1, char *str2);
 
