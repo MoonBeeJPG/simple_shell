@@ -106,26 +106,26 @@ char **tokenize_input(char *line)
 */
 int shell(char **tokenized)
 {
-    pid_t pid;
+    pid_t child;
     int status;
     
-	pid = fork();
-	if (pid == 0)
+	child = fork();
+	if (child == 0)
 	{
 		if (execvp(tokenized[0], tokenized) == -1)
 		{
-			perror("lsh");
+			perror("Program error");
 		}
 		exit(EXIT_FAILURE);
 	}
-	else if (pid < 0)
+	else if (child < 0)
 	{
-		perror("lsh");
+		perror("Fork error");
 	}
     else
     {
     	do {
-        	waitpid(pid, &status, WUNTRACED);
+        	waitpid(child, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     }
 	return (1);
