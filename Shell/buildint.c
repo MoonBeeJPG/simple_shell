@@ -5,7 +5,8 @@
 * @builtin: For betty checking
 */
 char (*builtin[]) = {
-	"exit"
+	"exit",
+	"cd"
 };
 
 /**
@@ -15,7 +16,8 @@ char (*builtin[]) = {
 * @builtin_func: For betty checking
 */
 int (*builtin_func[]) (char **) = {
-	&builtin_exit
+	&builtin_exit,
+	&builtin_cd
 };
 
 /**
@@ -39,6 +41,30 @@ int countbuiltins(void)
 int builtin_exit(char **tokenized __attribute__((unused)))
 {
 	return (0);
+}
+
+/**
+* builtin_cd - Built in for the command cd
+*
+* @tokenized: Previous tokenized input
+*
+* Return: 1 if its success, perror if the directory is missing 
+* or no specify
+*/
+int builtin_cd(char **tokenized)
+{
+	if (tokenized[1] == NULL) 
+	{
+		perror("Missing directory\n");
+	} 
+	else 
+	{
+		if (chdir(tokenized[1]) != 0) 
+		{
+			perror("No directory specify\n");
+		}
+	}
+	return (1);
 }
 
 /**
