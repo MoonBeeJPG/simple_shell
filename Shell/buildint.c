@@ -60,5 +60,5 @@ int match(char **tokenized)
         }
     }
 
-    return (shell(tokenized));
+    return shell(tokenized);
 }
