@@ -39,15 +39,8 @@ char *lsh_read_line(void)
 
     if (getline(&line, &bufsize, stdin) == -1)
 	{
-		if (feof(stdin))
-		{
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			perror("readline");
-			exit(EXIT_FAILURE);
-		}
+		perror("readline");
+		exit(EXIT_FAILURE);
 	}
 
     return (line);
@@ -75,7 +68,7 @@ char **lsh_split_line(char *line)
 
     if (!token)
     {
-        fprintf(stderr, "lsh: allocation error\n");
+        perror("lsh: allocation error\n");
         exit(EXIT_FAILURE);
     }
 
@@ -91,7 +84,7 @@ char **lsh_split_line(char *line)
             tokens = realloc(tokens, bufsize * sizeof(char *));
             if (!tokens)
             {
-                fprintf(stderr, "lsh: allocation error\n");
+                perror("lsh: allocation error\n");
                 exit(EXIT_FAILURE);
             }
         }
@@ -120,7 +113,7 @@ int lsh_launch(char **args)
         pid = fork();
         if (pid == 0)
         {
-            if (execvp(args[0], args) == -1)
+            if (execve(args[0], args, 0) == -1)
             {
                 perror("lsh");
             }
@@ -140,30 +133,20 @@ int lsh_launch(char **args)
 }
 
 /**
-* execute - function that matches the tokenized line input with the
-* corresponding program or buildint
-*
-* @args: previous tokenized line
-*
-* Return: If the tokenized input are not any of the buildint the
-* shell go to the system programs and work with pid and ppid
+* compare - replace of strcmp
+* while exist and are equal moremore
+* Return: str1 and str2
 */
-int lsh_execute(char **args)
+int compare(char *str1, char *str2)
 {
-    int i;
-
-    if (args[0] == NULL)
-    {
-        return (1);
-    }
-
-    for (i = 0; i < lsh_num_builtins(); i++)
-    {
-        if (strcmp(args[0], builtin_str[i]) == 0)
-        {
-            return (*builtin_func[i])(args);
-        }
-    }
-
-    return lsh_launch(args);
+	while(*str1 || *str2)
+	{
+		if(*str1 != *str2)
+		{
+			break;
+		}
+		++str1;
+		++str2;
+	}
+	return *str1 - *str2;
 }
