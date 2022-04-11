@@ -6,14 +6,14 @@
 #include <stdio.h>
 #include <string.h>
 
-int exit(char **tokenized);
-int main(char **tokenized);
+int builtin_exit(char **tokenized);
+int shell(char **tokenized);
 int match(char **tokenized);
 char *readline(void);
 char **tokenize_input(char *line);
 void infiniteloop(void);
 int countbuiltins(void);
 int compare(char *str1, char *str2);
-int runloop(void);
+int main(void);
 
 #endif

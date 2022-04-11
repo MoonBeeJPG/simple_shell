@@ -1,37 +1,12 @@
 #include "main.h"
 /**
-* shell - matches the tokenized line to the corresponding program
-* through a child
+* main - running the infinite loop
 *
-* @tokenized: previous line tokenized
-*
-* child: child created by the father
-*
-* Return: 1 (Shell on, Success)
+* Return: success
 */
-int main(char **tokenized)
+int main(void)
 {
-    pid_t child;
-    int status;
+	infiniteloop();
 
-    child = fork();
-    if (child == 0)
-    {
-        if (execvp(tokenized[0], tokenized) == -1)
-        {
-            perror("Program error");
-        }
-        exit(EXIT_FAILURE);
-    }
-    else if (child < 0)
-    {
-        perror("Fork error");
-    }
-    else
-    {
-        do {
-            waitpid(child, &status, WUNTRACED);
-        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-    }
-    return (1);
+	return EXIT_SUCCESS;
 }

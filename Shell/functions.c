@@ -1,20 +1,6 @@
 #include "main.h"
 
 /**
-* main - running the infinite loop
-*
-* Return: success
-*/
-int runloop(void)
-{
-
-  loop();
-
-  return EXIT_SUCCESS;
-}
-
-/**
-* infiniteloop - Infinite loop that are always on when the shell runs
 *
 * line: the input, when the person writes something this is the line reading
 * args: the previous line tokenized
@@ -33,7 +19,7 @@ void infiniteloop(void)
         tokenized = tokenize_input(input);
         status = match(tokenized);
 
-        free(line);
+        free(input);
         free(tokenized);
     } while (status);
 }
@@ -60,7 +46,7 @@ char *readline(void)
 }
 
 #define BUFFERSIZE 1024
-#define DELIM "\t\n"
+#define DELIM "\t\n\r\a"
 /**
 * tokenize_line - function for the tokenization of the input line
 *
@@ -101,13 +87,10 @@ char **tokenize_input(char *line)
                 exit(EXIT_FAILURE);
             }
         }
-<<<<<<< HEAD
         token = strtok(NULL, DELIM);
-=======
-        token = strtok(NULL, LSH_TOK_DELIM);
     }
-    tokens[position] = NULL;
-    return (tokens);
+    tokenbuff[position] = NULL;
+    return (tokenbuff);
 }
 
 /**
@@ -121,15 +104,15 @@ char **tokenize_input(char *line)
 *
 * Return: 1 (Shell on, Success)
 */
-int lsh_launch(char **args)
+int shell(char **tokenized)
 {
-    pid_t pid, wpid;
+    pid_t pid;
     int status;
     
 	pid = fork();
 	if (pid == 0)
 	{
-		if (execvp(args[0], args) == -1)
+		if (execvp(tokenized[0], tokenized) == -1)
 		{
 			perror("lsh");
 		}
@@ -142,12 +125,10 @@ int lsh_launch(char **args)
     else
     {
     	do {
-        	wpid = waitpid(pid, &status, WUNTRACED);
+        	waitpid(pid, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
->>>>>>> d23feec2022f6b1913ae72bde54092308dc60f98
     }
-    tokenbuff[position] = NULL;
-    return (tokenbuff);
+	return (1);
 }
 
 /**
