@@ -48,18 +48,18 @@ int builtin_exit(char **tokenized __attribute__((unused)))
 *
 * @tokenized: Previous tokenized input
 *
-* Return: 1 if its success, perror if the directory is missing 
+* Return: 1 if its success, perror if the directory is missing
 * or no specify
 */
 int builtin_cd(char **tokenized)
 {
-	if (tokenized[1] == NULL) 
+	if (tokenized[1] == NULL)
 	{
 		perror("Missing directory\n");
-	} 
-	else 
+	}
+	else
 	{
-		if (chdir(tokenized[1]) != 0) 
+		if (chdir(tokenized[1]) != 0)
 		{
 			perror("No directory specify\n");
 		}
