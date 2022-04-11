@@ -15,7 +15,12 @@ void infiniteloop(void)
 	int status;
 
 	do {
-		printf("#cisfun$ ");
+		
+		if (isatty(0))
+		{
+			printf("$ ");
+		}
+		
 		input = readline();
 		tokenized = tokenize_input(input);
 		status = match(tokenized);
