@@ -1,10 +1,7 @@
 #include "main.h"
 
 /**
-<<<<<<< HEAD
-=======
 * infiniteloop - Infinite loop that are always on when the shell runs
->>>>>>> 957c79a9a348a6e58cc1fb190d91569e0c2b8a63
 *
 * line: the input, when the person writes something this is the line reading
 * args: the previous line tokenized
@@ -49,13 +46,8 @@ char *readline(void)
     return (line);
 }
 
-<<<<<<< HEAD
-#define BUFFERSIZE 1024
-#define DELIM "\t\n\r\a"
-=======
 #define BUFFERSIZE 64
 #define DELIM "\t\r\n\a"
->>>>>>> 957c79a9a348a6e58cc1fb190d91569e0c2b8a63
 /**
 * tokenize_line - function for the tokenization of the input line
 *
@@ -114,7 +106,6 @@ char **tokenize_input(char *line)
 */
 int shell(char **tokenized)
 {
-<<<<<<< HEAD
     pid_t pid;
     int status;
     
@@ -138,31 +129,6 @@ int shell(char **tokenized)
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
     }
 	return (1);
-=======
-    pid_t child;
-    int status;
-
-    child = fork();
-    if (child == 0)
-    {
-        if (execvp(tokenized[0], tokenized) == -1)
-        {
-            perror("Program error");
-        }
-        exit(EXIT_FAILURE);
-    }
-    else if (child < 0)
-    {
-        perror("Fork error");
-    }
-    else
-    {
-        do {
-            waitpid(child, &status, WUNTRACED);
-        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-    }
-    return (1);
->>>>>>> 957c79a9a348a6e58cc1fb190d91569e0c2b8a63
 }
 
 /**
