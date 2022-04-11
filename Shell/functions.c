@@ -109,27 +109,27 @@ int lsh_launch(char **args)
 {
     pid_t pid, wpid;
     int status;
-
-        pid = fork();
-        if (pid == 0)
+    
+	pid = fork();
+	if (pid == 0)
+    {
+    	if (execvp(args[0], args) == -1)
         {
-            if (execve(args[0], args, 0) == -1)
-            {
-                perror("lsh");
-            }
-                exit(EXIT_FAILURE);
+        	perror("lsh");
         }
-        else if (pid < 0)
-        {
-            perror("lsh");
-        }
-        else
-        {
-            do {
-                wpid = waitpid(pid, &status, WUNTRACED);
-            } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-        }
-        return (1);
+        exit(EXIT_FAILURE);
+    }
+    else if (pid < 0)
+    {
+    	perror("lsh");
+    }
+    else
+    {
+    	do {
+        	wpid = waitpid(pid, &status, WUNTRACED);
+        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+    }
+    return (1);
 }
 
 /**
