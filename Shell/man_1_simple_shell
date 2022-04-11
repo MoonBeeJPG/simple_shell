@@ -11,11 +11,9 @@ OPERANDS
 
 		-		A single <hypen-minus> shall be treated as the first operand and then ignored. If both '-' are given as arguments, or it other operands pecede the single <hypen-minus>, the results are undefined.
 
-		argument
-			The positional parameters ($1, $2, and so on) shall be set to arguments, if any.
+argument
+	The positional parameters ($1, $2, and so on) shall be set to arguments, if any.
 		
-		command_file
-
 STDIN
  When the shell is using standard input and it invokes a command
        that also uses standard input, the shell shall ensure that the
@@ -28,6 +26,7 @@ STDIN
        command expecting to read standard input is started
        asynchronously by an interactive shell, it is unspecified whether
        characters are read by the command or interpreted by the shell.
+
 ASYNCHRONOUS EVENTS
 			If the shell is interactive, SIGINT signals received during command line editing shall be handled as described in the EXTENDED DESCIPTION, and SIGNINT signals received at other times shall be caught but no action performed.
 
@@ -39,3 +38,8 @@ STDOUT
 			See the STDERR section.
 PERROR
 			Print a system error message
+EXIT STATUS         top
+       The following exit values shall be returned:
+
+           0   The script to be executed consisted solely of zero or
+               more blank lines or comments, or both.
