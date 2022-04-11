@@ -16,5 +16,5 @@ void infiniteloop(void);
 int countbuiltins(void);
 int compare(char *str1, char *str2);
 int main(void);
-
+void sighand(__attribute__((unused)) int sighandv);
 #endif

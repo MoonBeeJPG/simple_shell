@@ -20,6 +20,7 @@ void infiniteloop(void)
 		{
 			printf("$ ");
 		}
+		signal(SIGINT, sighand);
 		
 		input = readline();
 		tokenized = tokenize_input(input);
