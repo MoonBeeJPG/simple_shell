@@ -101,7 +101,50 @@ char **tokenize_input(char *line)
                 exit(EXIT_FAILURE);
             }
         }
+<<<<<<< HEAD
         token = strtok(NULL, DELIM);
+=======
+        token = strtok(NULL, LSH_TOK_DELIM);
+    }
+    tokens[position] = NULL;
+    return (tokens);
+}
+
+/**
+* shell - matches the tokenized line to the corresponding program
+* through a child
+*
+* @args: previous line tokenized
+*
+* pid: child created by the father
+* waitchild: the father wait for the child dead
+*
+* Return: 1 (Shell on, Success)
+*/
+int lsh_launch(char **args)
+{
+    pid_t pid, wpid;
+    int status;
+    
+	pid = fork();
+	if (pid == 0)
+	{
+		if (execvp(args[0], args) == -1)
+		{
+			perror("lsh");
+		}
+		exit(EXIT_FAILURE);
+	}
+	else if (pid < 0)
+	{
+		perror("lsh");
+	}
+    else
+    {
+    	do {
+        	wpid = waitpid(pid, &status, WUNTRACED);
+        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+>>>>>>> d23feec2022f6b1913ae72bde54092308dc60f98
     }
     tokenbuff[position] = NULL;
     return (tokenbuff);

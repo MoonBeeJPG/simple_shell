@@ -6,13 +6,14 @@
 #include <stdio.h>
 #include <string.h>
 
-int lsh_exit(char **args);
-int lsh_launch(char **args);
-int lsh_execute(char **args);
-char *lsh_read_line(void);
-char **lsh_split_line(char *line);
-void lsh_loop(void);
-int lsh_num_builtins(void);
+int exit(char **args);
+int main(char **args);
+int match(char **args);
+char *readline(void);
+char **tokenize_input(char *line);
+void infiniteloop(void);
+int countbuiltins(void);
 int compare(char *str1, char *str2);
+int runloop(void);
 
 #endif

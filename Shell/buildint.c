@@ -33,7 +33,15 @@ int exit(char **tokenized)
 {
   return (0);
 }
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> cc31ebff4ea7523048273560255c8cb10a852ef3
+>>>>>>> d23feec2022f6b1913ae72bde54092308dc60f98
 /**
 * match - function that matches the size of the tokenized line input with the 
 * size of the corresponding program or buildint
