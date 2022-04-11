@@ -12,7 +12,7 @@ char *builtin[] = {
 * corresponds with every built in name
 */
 int (*builtin_func[]) (char **) = {
-  &lsh_exit
+  &builtin_exit
 };
 
 /**
@@ -21,7 +21,7 @@ int (*builtin_func[]) (char **) = {
 */
 int countbuiltins(void) 
 {
-  return (sizeof(builtin_str) / sizeof(char *));
+  return (sizeof(builtin) / sizeof(char *));
 }
 
 /**
@@ -29,19 +29,11 @@ int countbuiltins(void)
 *
 * Return: Always zero at the end of the execution
  */
-int exit(char **tokenized)
+int builtin_exit(char **tokenized)
 {
   return (0);
 }
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-
-
-=======
->>>>>>> cc31ebff4ea7523048273560255c8cb10a852ef3
->>>>>>> d23feec2022f6b1913ae72bde54092308dc60f98
 /**
 * match - function that matches the size of the tokenized line input with the 
 * size of the corresponding program or buildint
@@ -64,9 +56,9 @@ int match(char **tokenized)
     {
         if (compare(tokenized[0], builtin[i]) == 0)
         {
-            return (*builtin_func[i])(tokenized);
+            return ((*builtin_func[i])(tokenized));
         }
     }
 
-    return shell(tokenized);
+    return (shell(tokenized));
 }
