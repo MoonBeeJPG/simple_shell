@@ -28,10 +28,8 @@ int lsh_exit(char **args)
 {
   return (0);
 }
-<<<<<<< HEAD
 
 
-=======
 /**
 * execute - function that matches the tokenized line input with the
 * corresponding program or buildint
@@ -60,4 +58,3 @@ int lsh_execute(char **args)
 
     return lsh_launch(args);
 }
->>>>>>> fcbb5137c5a484b16e6f0307239e795d327dac86
