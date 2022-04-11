@@ -36,7 +36,7 @@ int countbuiltins(void)
 *
 * Return: Always zero at the end of the execution
  */
-int builtin_exit(char **tokenized)
+int builtin_exit(char **tokenized __attribute__((unused)))
 {
 	return (0);
 }
