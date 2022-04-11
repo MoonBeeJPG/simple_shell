@@ -8,7 +8,7 @@
 int main(void)
 {
 
-  infiniteloop();
+	infiniteloop();
 
-  return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
