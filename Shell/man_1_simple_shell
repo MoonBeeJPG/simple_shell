@@ -17,5 +17,25 @@ OPERANDS
 		command_file
 
 STDIN
-	The standar input shall be used only if the following is true:
+ When the shell is using standard input and it invokes a command
+       that also uses standard input, the shell shall ensure that the
+       standard input file pointer points directly after the command it
+       has read when the command begins execution. It shall not read
+       ahead in such a manner that any characters intended to be read by
+       the invoked command are consumed by the shell (whether
+       interpreted by the shell or not) or that characters that are not
+       read by the invoked command are not seen by the shell. When the
+       command expecting to read standard input is started
+       asynchronously by an interactive shell, it is unspecified whether
+       characters are read by the command or interpreted by the shell.
+ASYNCHRONOUS EVENTS
+			If the shell is interactive, SIGINT signals received during command line editing shall be handled as described in the EXTENDED DESCIPTION, and SIGNINT signals received at other times shall be caught but no action performed.
 
+If the shell is interactive:
+	SIGQUIT and SIGTERM signals shall be ignored.
+The standars actions, and the actions described above for interactive shels, can be overridden by use of the trap special built-in utility.
+
+STDOUT
+			See the STDERR section.
+PERROR
+			Print a system error message

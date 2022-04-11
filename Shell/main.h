@@ -6,9 +6,9 @@
 #include <stdio.h>
 #include <string.h>
 
-int exit(char **args);
-int main(char **args);
-int match(char **args);
+int exit(char **tokenized);
+int main(char **tokenized);
+int match(char **tokenized);
 char *readline(void);
 char **tokenize_input(char *line);
 void infiniteloop(void);
