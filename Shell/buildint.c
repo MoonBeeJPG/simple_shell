@@ -1,41 +1,49 @@
 #include "main.h"
-
 /**
 * builtin - An array that stores all the built in names
+*
+* @builtin: For betty checking
 */
-char *builtin[] = {
-  "exit"
+char (*builtin[]) = {
+	"exit"
 };
 
 /**
 * builtin_func - An array that stores all the built in functions that
 * corresponds with every built in name
+*
+* @builtin_func: For betty checking
 */
 int (*builtin_func[]) (char **) = {
-  &builtin_exit
+	&builtin_exit
 };
 
 /**
-* countbuiltins - Returns the size of the built in name and lately 
+* countbuiltins - Returns the size of the built in name and lately
 * compares it with the size of tokenized input
+*
+* Return: Size of the built in name
 */
-int countbuiltins(void) 
+int countbuiltins(void)
 {
-  return (sizeof(builtin) / sizeof(char *));
+	return (sizeof(builtin) / sizeof(char *));
 }
 
 /**
-* exit - Built in for the command exit
+* builtin_exit - Built in for the command exit
+*
+* @tokenized: previous tokenized input
 *
 * Return: Always zero at the end of the execution
  */
 int builtin_exit(char **tokenized)
 {
-  return (0);
+	return (0);
 }
 
 /**
-* size of the corresponding program or buildint
+* match - compares the size of the built int name and the size of the tokenized
+* input
 *
 * @tokenized: previous tokenized line
 *
@@ -44,20 +52,20 @@ int builtin_exit(char **tokenized)
 */
 int match(char **tokenized)
 {
-    int i;
+	int i;
 
-    if (tokenized[0] == NULL)
-    {
-        return (1);
-    }
+	if (tokenized[0] == NULL)
+	{
+		return (1);
+	}
 
-    for (i = 0; i < countbuiltins(); i++)
-    {
-        if (compare(tokenized[0], builtin[i]) == 0)
-        {
-            return ((*builtin_func[i])(tokenized));
-        }
-    }
+	for (i = 0; i < countbuiltins(); i++)
+	{
+		if (compare(tokenized[0], builtin[i]) == 0)
+		{
+			return ((*builtin_func[i])(tokenized));
+		}
+	}
 
-    return shell(tokenized);
+	return (shell(tokenized));
 }

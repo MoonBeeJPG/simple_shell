@@ -9,5 +9,5 @@ int main(void)
 {
 	infiniteloop();
 
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
