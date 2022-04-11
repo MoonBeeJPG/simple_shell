@@ -47,11 +47,7 @@ char *readline(void)
 }
 
 #define BUFFERSIZE 64
-<<<<<<< HEAD
-#define DELIM " \t\r\n\a"
-=======
-#define DELIM "\t\r\n\a"
->>>>>>> 0886033203de28f5fd64c32096cbb521fe6b4377
+#define DELIM " \t\n"
 /**
 * tokenize_line - function for the tokenization of the input line
 *
@@ -110,27 +106,11 @@ char **tokenize_input(char *line)
 */
 int shell(char **tokenized)
 {
-<<<<<<< HEAD
     pid_t child;
-    int status;
-    
-	child = fork();
-	if (child == 0)
-=======
-<<<<<<< HEAD
-	pid_t child;
-	int status;
-
-	child = fork();
-	if (child == 0)
-=======
-    pid_t pid;
     int status;
     
 	pid = fork();
 	if (pid == 0)
->>>>>>> 0886033203de28f5fd64c32096cbb521fe6b4377
->>>>>>> 2b6bdf8bd6413995947e63ad9ec00606b8a2e3dd
 	{
 		if (execvp(tokenized[0], tokenized) == -1)
 		{
@@ -142,7 +122,6 @@ int shell(char **tokenized)
 	{
 		perror("Fork error");
 	}
-<<<<<<< HEAD
 	else
 	{
     	do	{
@@ -151,15 +130,6 @@ int shell(char **tokenized)
 	}
 
   return (1);
-=======
-    else
-    {
-    	do {
-        	waitpid(child, &status, WUNTRACED);
-        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-    }
-	return (1);
->>>>>>> 0886033203de28f5fd64c32096cbb521fe6b4377
 }
 /**
 * compare - function replace of strcmp
