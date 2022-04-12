@@ -23,8 +23,8 @@ void infiniteloop(void)
 		tokenized = tokenize_input(input);
 		status = match(tokenized);
 
-		free(input);
-		free(tokenized);
+	free(input);
+	free(tokenized);
 	} while (status);
 }
 
@@ -73,7 +73,6 @@ char **tokenize_input(char *line)
 
 	if (!tokenbuff)
 	{
-		free(tokenbuff);
 		exit(EXIT_FAILURE);
 	}
 

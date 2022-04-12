@@ -1,6 +1,6 @@
 #include "main.h"
 /**
-* checkinput - Function that check if the 
+* checkinput - Function that check if the
 * input reading some characters or not
 *
 * @line: Line previously read

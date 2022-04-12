@@ -1,6 +1,6 @@
 #include "main.h"
 /**
-* counter: Function that count line arguments
+* counter - Function that count line arguments
 *
 * @line: previous line read
 *
