@@ -101,7 +101,7 @@ int match(char **tokenized)
 * builtin_env - to get variables of environment
 * Return: Success
 */
-int getenvironment(void)
+int builtin_env(void)
 {
 	unsigned int c = 0, i = 0;
 
