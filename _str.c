@@ -1,6 +1,9 @@
 #include "main.h"
 /**
 * _strlen - to environment
+*
+* @s: a parameter
+*
 * Return: i
 */
 int _strlen(char *s)
