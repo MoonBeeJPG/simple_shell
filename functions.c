@@ -15,8 +15,6 @@ void infiniteloop(void)
 	int status;
 
 	do {
-		if (isatty(STDIN_FILENO) == 1)
-			write(1, "$ ", 2);
 		input = readline();
 		tokenized = tokenize_input(input);
 		status = match(tokenized);
@@ -48,7 +46,7 @@ char *readline(void)
 }
 
 #define BUFFERSIZE 64
-#define DELIM " \t\n"
+#define DELIM " \t\r\n\a"
 /**
 * tokenize_input - function for the tokenization of the input line
 *
@@ -93,7 +91,6 @@ char **tokenize_input(char *line)
 	}
 	tokenbuff[position] = NULL;
 	return (tokenbuff);
-	free(tokenbuff);
 }
 
 /**
