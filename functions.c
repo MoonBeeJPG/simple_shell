@@ -39,7 +39,10 @@ char *readline(void)
 	char *line = NULL;
 	size_t buffer = 0;
 
-	getline(&line, &buffer, stdin);
+	if (getline(&line, &buffer, stdin) == -1)
+	{
+		exit(EXIT_FAILURE);
+	}
 	
 	return (line);
 }
