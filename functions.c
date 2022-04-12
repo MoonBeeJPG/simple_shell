@@ -128,11 +128,12 @@ int shell(char **tokenized)
 	else if (child < 0)
 	{
 		perror("Fork error");
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		do	{
-			waitpid(child, &status, WUNTRACED);
+		do {
+			wait(&status);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 
