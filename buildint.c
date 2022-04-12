@@ -38,12 +38,12 @@ int countbuiltins(void)
 */
 int builtin_exit(char **tokenized __attribute__((unused)))
 {
-	printf("Success\n");
+	printf("Start\n");
 
-	printf("Now exit time..\n");
+	printf("Exit time\n");
 	exit(0);
 
-	printf("The end time is here\n");
+	printf("End is here\n");
 
 	return (0);
 }
