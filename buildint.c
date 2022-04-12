@@ -40,7 +40,9 @@ int countbuiltins(void)
 */
 int builtin_exit(char **tokenized __attribute__((unused)))
 {
-	return (EXIT_SUCCESS);
+	exit(0);
+
+	return (0);
 }
 
 /**
