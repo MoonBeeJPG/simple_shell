@@ -37,5 +37,5 @@ Taking into account that our arguments exist or are not just a space.
 
 ##Buildint
 We list commands with their corresponding function
-#exit
+##exit
 We create the exit function to implement ir, returning 0 as a signal to end the loop.
