@@ -114,7 +114,7 @@ char **tokenize_input(char *line)
 int shell(char **tokenized)
 {
 	pid_t child;
-	int status;
+	int status = 0;
 
 	child = fork();
 	if (child == 0)
