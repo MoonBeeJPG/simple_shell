@@ -14,19 +14,17 @@ void infiniteloop(void)
 	char **tokenized;
 	int status;
 	
-	while (1)
-	{
-		do {
-			if (isatty(STDIN_FILENO) == 1)
-				write(1, "$ ", 2);
-			input = readline();
-			tokenized = tokenize_input(input);
-			status = match(tokenized);
+	do {
+		if (isatty(STDIN_FILENO) == 1)
+			write(1, "$ ", 2);
+		input = readline();
+		tokenized = tokenize_input(input);
+		status = match(tokenized);
 
-			free(input);
-			free(tokenized);
-		} while (status);
-	}
+		free(input);
+		free(tokenized);
+	} while (status);
+	
 }
 
 /**
@@ -45,6 +43,7 @@ char *readline(void)
 	if (getline(&line, &buffer, stdin) == -1)
 	{
 		exit(EXIT_FAILURE);
+		return (0);
 	}
 	
 	return (line);
@@ -133,7 +132,7 @@ int shell(char **tokenized)
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 
-	return (0);
+	return (1);
 }
 /**
 * compare - function replace of strcmp
