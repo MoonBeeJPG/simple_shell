@@ -5,7 +5,7 @@
 * @builtin: For betty checking
 */
 char (*builtin[]) = {
-	"exit",
+	"exit"
 };
 
 /**
@@ -15,7 +15,7 @@ char (*builtin[]) = {
 * @builtin_func: For betty checking
 */
 int (*builtin_func[]) (char **) = {
-	&builtin_exit,
+	&builtin_exit
 };
 
 /**
