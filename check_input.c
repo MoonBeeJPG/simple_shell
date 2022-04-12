@@ -1,10 +1,11 @@
 #include "main.h"
 /**
-* checkinput - inputcheck
+* checkinput - Function that check if the 
+* input reading some characters or not
 *
 * @line: Line previously read
 *
-* Return: returning
+* Return: -1 it its fail
 */
 int checkinput(char *line)
 {
