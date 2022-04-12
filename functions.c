@@ -41,16 +41,12 @@ char *readline(void)
 	char *line = NULL;
 	size_t buffer = 0;
 
-	if (getline(&line, &buffer, stdin) == '\n')
+	if (getline(&line, &buffer, stdin) == -1)
 	{
 		exit(EXIT_FAILURE);
 	}
-	while (line[0] == '\n')
-		continue;
-/**	
-	while (checkinput(line) == -1)
-		continue;
-**/
+	if (checkinput(line) == -1)
+		return (NULL);
 	return (line);
 }
 

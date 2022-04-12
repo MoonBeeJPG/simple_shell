@@ -24,5 +24,6 @@ int checkinput(char *line)
 		}
 		i++;
 	}
+	free(line);
 	return (retu);
 }
