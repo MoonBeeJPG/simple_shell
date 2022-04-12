@@ -44,11 +44,11 @@ int builtin_exit(char **tokenized __attribute__((unused)))
 }
 
 /**
-* builtin_env - a
+* builtin_env - Built in for the command env
 *
-* @tokenized: b
+* @tokenized: Previous line tokenized
 *
-* Return: 0
+* Return: Always zero at the end of the execution
 */
 int builtin_env(char **tokenized __attribute__((unused)))
 {

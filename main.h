@@ -9,6 +9,8 @@
 extern char **environ;
 
 int builtin_exit(char **tokenized);
+int checkinput(char *line);
+void freetok(char **tokenized);
 int _strlen(char *s);
 int builtin_env(char **tokenized);
 int shell(char **tokenized);
