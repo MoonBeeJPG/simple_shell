@@ -47,10 +47,10 @@ char *readline(void)
 	}
 	while (line[0] == '\n')
 		continue;
-	
+/**	
 	while (checkinput(line) == -1)
 		continue;
-
+**/
 	return (line);
 }
 
