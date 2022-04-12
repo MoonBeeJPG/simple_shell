@@ -1,6 +1,9 @@
 #include "main.h"
 /**
-* to use environ
+* _putchar - to use with environ
+*
+* @c: a paremetr
+*
 * Return: success
 */
 int _putchar(char c)
