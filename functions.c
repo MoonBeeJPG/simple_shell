@@ -99,6 +99,7 @@ char **tokenize_input(char *line)
 	}
 	tokenbuff[position] = NULL;
 	return (tokenbuff);
+	free (tokenbuff);
 }
 
 /**
@@ -119,7 +120,7 @@ int shell(char **tokenized)
 	child = fork();
 	if (child == 0)
 	{
-		if (execvp(tokenized[0], tokenized) == -1)
+		if (execve(tokenized[0], tokenized, environ) == -1)
 		{
 			perror("Program error");
 		}
@@ -136,7 +137,7 @@ int shell(char **tokenized)
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 
-	return (1);
+	return (0);
 }
 /**
 * compare - function replace of strcmp
