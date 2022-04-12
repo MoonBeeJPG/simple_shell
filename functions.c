@@ -15,6 +15,7 @@ void infiniteloop(void)
 	int status;
 
 	do {
+		printf("$ ");
 		input = readline();
 		tokenized = tokenize_input(input);
 		status = match(tokenized);
@@ -91,6 +92,7 @@ char **tokenize_input(char *line)
 	}
 	tokenbuff[position] = NULL;
 	return (tokenbuff);
+	free(tokenbuff);
 }
 
 /**
