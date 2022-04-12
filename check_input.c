@@ -23,5 +23,5 @@ int checkinput(char *line)
 		}
 		i++;
 	}
-	return (returning);
+	return (retu);
 }
