@@ -39,16 +39,13 @@ char *readline(void)
 	char *line = NULL;
 	size_t buffer = 0;
 
-	if (getline(&line, &buffer, stdin) == -1)
-	{
-		perror("Error reading input");
-		exit(EXIT_FAILURE);
-	}
+	getline(&line, &buffer, stdin);
+	
 	return (line);
 }
 
 #define BUFFERSIZE 64
-#define DELIM "  \t\r\n\a"
+#define DELIM " \t\r\n\a"
 /**
 * tokenize_input - function for the tokenization of the input line
 *
