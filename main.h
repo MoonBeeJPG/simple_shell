@@ -6,6 +6,9 @@
 #include <stdio.h>
 #include <string.h>
 
+int _strlen(char *s);
+int _putchar(char c);
+int getenvironment(void);
 int builtin_exit(char **tokenized);
 int builtin_cd(char **tokenized);
 int shell(char **tokenized);
