@@ -48,7 +48,7 @@ char *readline(void)
 }
 
 #define BUFFERSIZE 64
-#define DELIM " \t\r\n\a"
+#define DELIM "  \t\r\n\a"
 /**
 * tokenize_input - function for the tokenization of the input line
 *
