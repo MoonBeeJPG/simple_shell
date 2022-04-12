@@ -46,8 +46,9 @@ char *readline(void)
 		free(line);
 		exit(EXIT_FAILURE);
 	}
-	if (checkinput(line) == -1)
-		return (NULL);
+	
+	while (checkinput(line) == -1)
+		continue;
 
 	return (line);
 }
