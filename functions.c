@@ -25,6 +25,7 @@ void infiniteloop(void)
 
 		free(input);
 		free(tokenized);
+		free(status);
 	} while (status);
 
 }
