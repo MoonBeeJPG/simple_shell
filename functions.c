@@ -15,13 +15,13 @@ void infiniteloop(void)
 	int status;
 
 	do {
-		
+
 		if (isatty(0))
 		{
 			printf("$ ");
 		}
 		signal(SIGINT, sighand);
-		
+
 		input = readline();
 		tokenized = tokenize_input(input);
 		status = match(tokenized);
@@ -51,7 +51,7 @@ char *readline(void)
 	}
 	if (isatty(0))
 	{
-		printf("$ "); 
+		printf("$ ");
 	}
 	return (line);
 }
