@@ -95,7 +95,6 @@ char **tokenize_input(char *line)
 	}
 	tokenbuff[position] = NULL;
 	return (tokenbuff);
-	free(tokenbuff);
 }
 
 /**
