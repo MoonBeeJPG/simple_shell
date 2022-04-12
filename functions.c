@@ -25,9 +25,7 @@ void infiniteloop(void)
 
 		free(input);
 		free(tokenized);
-
 	} while (status);
-
 }
 
 /**
@@ -92,6 +90,7 @@ char **tokenize_input(char *line)
 			tokenbuff = realloc(tokenbuff, buffer * sizeof(char *));
 			if (!tokenbuff)
 			{
+				free(tokenbuff);
 				perror("Allocation error\n");
 				exit(EXIT_FAILURE);
 			}
@@ -100,7 +99,6 @@ char **tokenize_input(char *line)
 	}
 	tokenbuff[position] = NULL;
 	return (tokenbuff);
-	free(tokenbuff);
 }
 
 /**
