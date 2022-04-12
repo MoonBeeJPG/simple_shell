@@ -6,6 +6,7 @@
 */
 char (*builtin[]) = {
 	"exit",
+	"env",
 	"cd"
 };
 
@@ -17,6 +18,7 @@ char (*builtin[]) = {
 */
 int (*builtin_func[]) (char **) = {
 	&builtin_exit,
+	&builtin_env,
 	&builtin_cd
 };
 
@@ -40,8 +42,6 @@ int countbuiltins(void)
 */
 int builtin_exit(char **tokenized __attribute__((unused)))
 {
-	exit(EXIT_SUCCESS);
-
 	return (0);
 }
 
@@ -96,4 +96,20 @@ int match(char **tokenized)
 	}
 
 	return (shell(tokenized));
+}
+/**
+* builtin_env - to get variables of environment
+* Return: Success
+*/
+int getenvironment(void)
+{
+	unsigned int c = 0, i = 0;
+
+	for (; environ[i] != NULL; i++)
+	{
+		write(1, environ[c], _strlen(environ[c]));
+		_putchar('\n');
+		c++;
+	}
+	return (0);
 }
