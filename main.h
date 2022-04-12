@@ -7,7 +7,6 @@
 #include <string.h>
 
 int builtin_exit(char **tokenized);
-int builtin_cd(char **tokenized);
 int shell(char **tokenized);
 int match(char **tokenized);
 char *readline(void);
