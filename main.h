@@ -6,7 +6,11 @@
 #include <stdio.h>
 #include <string.h>
 
+extern char **environ;
+
 int builtin_exit(char **tokenized);
+int _strlen(char *s);
+int builtin_env(char **tokenized);
 int shell(char **tokenized);
 int match(char **tokenized);
 char *readline(void);

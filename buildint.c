@@ -5,7 +5,8 @@
 * @builtin: For betty checking
 */
 char (*builtin[]) = {
-	"exit"
+	"exit",
+	"env"
 };
 
 /**
@@ -15,7 +16,8 @@ char (*builtin[]) = {
 * @builtin_func: For betty checking
 */
 int (*builtin_func[]) (char **) = {
-	&builtin_exit
+	&builtin_exit,
+	&builtin_env
 };
 
 /**
@@ -41,6 +43,25 @@ int builtin_exit(char **tokenized __attribute__((unused)))
 	return (0);
 }
 
+/**
+* builtin_env - a
+*
+* @tokenized: b
+*
+* Return: 0
+*/
+int builtin_env(char **tokenized __attribute__((unused)))
+{
+	int i = 0;
+
+	while(environ[i] != NULL)
+	{
+		write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
+		write(STDOUT_FILENO, "\n", 1);
+		i++;
+	}
+	return (0);
+}
 /**
 * match - compares the size of the built int name and the size of the tokenized
 * input
