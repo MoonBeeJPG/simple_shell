@@ -38,9 +38,15 @@ int countbuiltins(void)
 *
 * Return: Always zero at the end of the execution
 */
-int builtin_exit(char **tokenized __attribute__((unused)))
+int builtin_exit(char **tokenized)
 {
-	exit(EXIT_SUCCESS);
+	if (compare(tokenized[0], "exit") == 0)
+
+		exit(EXIT_SUCCESS);
+
+	else
+		exit(EXIT_FAILURE);
+	
 }
 
 /**
