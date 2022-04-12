@@ -54,7 +54,7 @@ int builtin_env(char **tokenized __attribute__((unused)))
 {
 	int i = 0;
 
-	while(environ[i] != NULL)
+	while (environ[i] != NULL)
 	{
 		write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
 		write(STDOUT_FILENO, "\n", 1);

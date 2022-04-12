@@ -22,11 +22,11 @@ void infiniteloop(void)
 			continue;
 		tokenized = tokenize_input(input);
 		status = match(tokenized);
-		
+
 		free(input);
 		free(tokenized);
 	} while (status);
-	
+
 }
 
 /**
@@ -44,12 +44,12 @@ char *readline(void)
 
 	if (getline(&line, &buffer, stdin) == -1)
 	{
-		free (line);
+		free(line);
 		exit(EXIT_FAILURE);
 	}
 	if (checkinput(line) == -1)
 		return (NULL);
-	
+
 	return (line);
 }
 
