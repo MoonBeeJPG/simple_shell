@@ -86,7 +86,7 @@ int match(char **tokenized)
 	{
 		return (1);
 	}
-	
+
 	for (i = 0; i < countbuiltins(); i++)
 	{
 		if (compare(tokenized[0], builtin[i]) == 0)
@@ -98,7 +98,7 @@ int match(char **tokenized)
 	return (shell(tokenized));
 }
 /**
-* builtin_env - to get variables of environment
+* getenvironment - to get variables of environment
 * Return: Success
 */
 int builtin_env(void)

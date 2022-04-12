@@ -15,6 +15,7 @@ void infiniteloop(void)
 	int status;
 
 	do {
+		printf("& ");
 		input = readline();
 		tokenized = tokenize_input(input);
 		status = match(tokenized);
