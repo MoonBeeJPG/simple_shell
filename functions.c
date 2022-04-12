@@ -52,7 +52,6 @@ char *readline(void)
 	return (line);
 }
 
-#define BUFFERSIZE 64
 #define DELIM " \t\r\n\a"
 /**
 * tokenize_input - function for the tokenization of the input line
@@ -68,13 +67,13 @@ char *readline(void)
 */
 char **tokenize_input(char *line)
 {
-	int buffer = BUFFERSIZE, position = 0;
-	char **tokenbuff = malloc(buffer * sizeof(char *));
+	int buffer = counter(line), position = 0;
+	char **tokenbuff = calloc(buffer, sizeof(char *));
 	char *token;
 
 	if (!tokenbuff)
 	{
-		perror("Allocation error\n");
+		free(tokenbuff);
 		exit(EXIT_FAILURE);
 	}
 
@@ -83,18 +82,6 @@ char **tokenize_input(char *line)
 	{
 		tokenbuff[position] = token;
 		position++;
-
-		if (position >= buffer)
-		{
-			buffer += BUFFERSIZE;
-			tokenbuff = realloc(tokenbuff, buffer * sizeof(char *));
-			if (!tokenbuff)
-			{
-				free(tokenbuff);
-				perror("Allocation error\n");
-				exit(EXIT_FAILURE);
-			}
-		}
 		token = strtok(NULL, DELIM);
 	}
 	tokenbuff[position] = NULL;

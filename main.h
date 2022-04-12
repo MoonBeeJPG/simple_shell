@@ -9,6 +9,7 @@
 extern char **environ;
 
 int builtin_exit(char **tokenized);
+int counter(char *line);
 int checkinput(char *line);
 int _strlen(char *s);
 int builtin_env(char **tokenized);
