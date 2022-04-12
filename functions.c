@@ -15,7 +15,8 @@ void infiniteloop(void)
 	int status;
 
 	do {
-		printf("$ ");
+		if (isatty(STDIN_FILENO) == 1)
+			write(1, "$ ", 2);
 		input = readline();
 		tokenized = tokenize_input(input);
 		status = match(tokenized);
