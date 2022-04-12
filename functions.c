@@ -43,12 +43,19 @@ char *readline(void)
 
 	if (getline(&line, &buffer, stdin) == -1)
 	{
+<<<<<<< HEAD
 		free (line);
+=======
+		free(line);
+>>>>>>> 81626dd5a3188f6c6fc53e8330f5fd514ec5e23a
 		exit(EXIT_FAILURE);
 	}
 	if (checkinput(line) == -1)
 		return (NULL);
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 81626dd5a3188f6c6fc53e8330f5fd514ec5e23a
 	
 	return (line);
 }

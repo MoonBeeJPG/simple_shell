@@ -7,7 +7,7 @@
 #include <string.h>
 
 extern char **environ;
-
+int checkinput(char *line);
 int builtin_exit(char **tokenized);
 int checkinput(char *line);
 void freetok(char **tokenized);
