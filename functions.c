@@ -13,9 +13,10 @@ void infiniteloop(void)
 	char *input;
 	char **tokenized;
 	int status;
-
+	
 	do {
-		printf("$ ");
+		if (isatty(STDIN_FILENO) == 1)
+			write(1, "$ ", 2);
 		input = readline();
 		tokenized = tokenize_input(input);
 		status = match(tokenized);
@@ -23,6 +24,7 @@ void infiniteloop(void)
 		free(input);
 		free(tokenized);
 	} while (status);
+	
 }
 
 /**
@@ -40,9 +42,10 @@ char *readline(void)
 
 	if (getline(&line, &buffer, stdin) == -1)
 	{
-		perror("Error reading input");
 		exit(EXIT_FAILURE);
+		return (0);
 	}
+	
 	return (line);
 }
 
@@ -92,6 +95,7 @@ char **tokenize_input(char *line)
 	}
 	tokenbuff[position] = NULL;
 	return (tokenbuff);
+	free(tokenbuff);
 }
 
 /**
