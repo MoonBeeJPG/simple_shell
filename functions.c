@@ -18,7 +18,7 @@ void infiniteloop(void)
 		if (isatty(STDIN_FILENO) == 1)
 			write(1, "$ ", 2);
 		input = readline();
-		if (input == NULL)
+		while (checkinput(input) == -1)
 			continue;
 		tokenized = tokenize_input(input);
 		status = match(tokenized);
@@ -45,9 +45,8 @@ char *readline(void)
 	{
 		exit(EXIT_FAILURE);
 	}
-	while (checkinput(line) == -1)
-		continue;
-
+/**	while (checkinput(line) == -1)
+		continue; **/
 	return (line);
 }
 
