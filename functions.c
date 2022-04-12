@@ -40,15 +40,13 @@ char *readline(void)
 {
 	char *line = NULL;
 	size_t buffer = 0;
-	int i = 0;
 
-	i = getline(&line, &buffer, stdin);
-	while (i == -1)
-		break;
-	while (line[0] == '\n')
+	if (getline(&line, &buffer, stdin) == -1)
+	{
+		exit(EXIT_FAILURE);
+	}
+	while (checkinput(line) == -1)
 		continue;
-/**	while (checkinput(line) == -1)
-		continue; **/
 	return (line);
 }
 
