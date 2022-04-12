@@ -132,7 +132,7 @@ int shell(char **tokenized)
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 
-	return (1);
+	return (0);
 }
 /**
 * compare - function replace of strcmp
