@@ -5,7 +5,8 @@
 * @builtin: For betty checking
 */
 char (*builtin[]) = {
-	"cd",
+	"exit",
+	"cd"
 };
 
 /**
@@ -15,7 +16,8 @@ char (*builtin[]) = {
 * @builtin_func: For betty checking
 */
 int (*builtin_func[]) (char **) = {
-	&builtin_cd,
+	&builtin_exit,
+	&builtin_cd
 };
 
 /**
@@ -35,12 +37,12 @@ int countbuiltins(void)
 * @tokenized: previous tokenized input
 *
 * Return: Always zero at the end of the execution
- *
+*/
 int builtin_exit(char **tokenized __attribute__((unused)))
 {
 	return (0);
 }
-**/
+
 /**
 * builtin_cd - Built in for the command cd
 *
@@ -83,12 +85,6 @@ int match(char **tokenized)
 		return (1);
 	}
 	
-	if (compare(tokenized[0], "exit") == 0)
-	{
-		free(tokenized);
-		exit (0);
-	}
-
 	for (i = 0; i < countbuiltins(); i++)
 	{
 		if (compare(tokenized[0], builtin[i]) == 0)
