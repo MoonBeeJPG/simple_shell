@@ -120,7 +120,6 @@ int shell(char **tokenized)
 			wait(&status);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-	free(tokenized[0]);
 	return (1);
 }
 /**
