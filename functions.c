@@ -15,6 +15,7 @@ void infiniteloop(void)
 	int status;
 
 	do {
+		signal(SIGINT, signalctrl_c);
 		if (isatty(STDIN_FILENO) == 1)
 			write(1, "$ ", 2);
 		input = readline();
